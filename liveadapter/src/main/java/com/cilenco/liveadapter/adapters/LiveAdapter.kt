@@ -2,6 +2,7 @@ package com.cilenco.liveadapter.adapters
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 
 import androidx.annotation.IdRes
@@ -27,12 +28,12 @@ open class LiveAdapter<T:Any>(private val items: ObservableList<T>): Adapter<Bin
 
     protected val touchHelper by lazy { ItemTouchHelper(swipeHelper) }
     protected val swipeHelper by lazy { SimpleSwipeCallback(this) }
+    protected val listCallback by lazy { SortedListCallback(this) }
 
-    protected val listCallback = SortedListCallback(this) // by lazy { SortedListCallback(this) }
     protected var recyclerView: RecyclerView? = null
 
-    protected var onClickCallback: (item: T, position: Int) -> Unit = { _: T, _: Int ->  }
-    protected var onLongClickCallback: (item: T, position: Int) -> Boolean = { _: T, _: Int ->  false }
+    protected var onClickCallback: (view: View, item: T, position: Int) -> Unit = { _: View, _: T, _: Int ->  }
+    protected var onLongClickCallback: (view: View, item: T, position: Int) -> Boolean = { _: View, _: T, _: Int ->  false }
 
     @LayoutRes protected var layoutRes: Int = 0
     @IdRes protected var layoutVar: Int = 0
@@ -112,11 +113,11 @@ open class LiveAdapter<T:Any>(private val items: ObservableList<T>): Adapter<Bin
         visibleItems.endBatchedUpdates()
     }
 
-    fun onClick(callback: (item: T, position: Int) -> Unit) {
+    fun onClick(callback: (view: View, item: T, position: Int) -> Unit) {
         onClickCallback = callback
     }
 
-    fun onLongClick(callback: (item: T, position: Int) -> Boolean) {
+    fun onLongClick(callback: (view: View, item: T, position: Int) -> Boolean) {
         onLongClickCallback = callback
     }
 
@@ -129,8 +130,8 @@ open class LiveAdapter<T:Any>(private val items: ObservableList<T>): Adapter<Bin
         holder.binding.setVariable(layoutVar, getItem(position))
         holder.binding.executePendingBindings()
 
-        holder.itemView.setOnClickListener { onClickCallback(getItem(position), position) }
-        holder.itemView.setOnLongClickListener { onLongClickCallback(getItem(position), position) }
+        holder.itemView.setOnClickListener { onClickCallback(holder.itemView, getItem(position), position) }
+        holder.itemView.setOnLongClickListener { onLongClickCallback(holder.itemView, getItem(position), position) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ViewDataBinding> {

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 
 import androidx.activity.viewModels
@@ -79,11 +80,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun onItemClicked(book: Book, position: Int) {
+    private fun onItemClicked(view: View, book: Book, position: Int) {
         Toast.makeText(this, "Clicked: ${book.title}", Toast.LENGTH_LONG).show()
     }
 
-    private fun onItemLongClicked(book: Book, position: Int): Boolean {
+    private fun onItemLongClicked(view: View, book: Book, position: Int): Boolean {
         Toast.makeText(this, "Long clicked: ${book.title}", Toast.LENGTH_LONG).show()
         return true
     }
