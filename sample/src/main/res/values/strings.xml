@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LiveAdapter Demo</string>
+    <string name="empty" translatable="false"></string>
+
+    <string name="search">Search</string>
+    <string name="order">Order</string>
+</resources>

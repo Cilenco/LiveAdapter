@@ -1,0 +1,33 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+
+    dataBinding.enabled true
+
+    defaultConfig {
+        applicationId "com.cilenco.liveadapter.sample"
+
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionName "1.0"
+        versionCode 1
+    }
+}
+
+dependencies {
+    implementation project(path: ':liveadapter')
+
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.fragment:fragment-ktx:1.1.0-alpha09"
+
+    implementation "com.amulyakhare:com.amulyakhare.textdrawable:1.0.1"
+
+    kapt "com.android.databinding:compiler:3.1.4"
+}
